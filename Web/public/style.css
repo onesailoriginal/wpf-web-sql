@@ -1,0 +1,180 @@
+/* style.css */
+
+/* Általános beállítások */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(120deg, #89f7fe, #66a6ff);
+    color: #333;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* A szülő section elemnek mindig legyen margin-top */
+section.inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 2rem; /* Fix felső margó */
+}
+
+section.inputs input {
+    width: 80%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+section.inputs button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background: #66a6ff;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+section.inputs button:hover {
+    background: #4c8fd4;
+}
+
+/* Kártyák szülő konténerének stílusa */
+#newDatas {
+    margin-top: 2rem; /* Az új kártyák szülő konténerének margója */
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 oszlop alapértelmezett */
+    gap: 1.5rem; /* Távolság a kártyák között */
+    padding: 1rem;
+    max-height: 80vh; /* Maximum magasság beállítása a szülő konténernek */
+    overflow-y: auto; /* Görgethetőség, ha túl sok kártya lenne */
+}
+
+/* Kártyák stílusa */
+#newDatas div {
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1), -2px -2px 5px rgba(255, 255, 255, 0.7);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+#newDatas div:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(145deg, #f1f1f1, #dcdcdc);
+}
+
+/* Kártyákra vonatkozó szövegek stílusa */
+#newDatas div p {
+    margin: 0.5rem 0;
+    color: #333;
+    font-size: 1rem;
+    font-weight: 600;
+    word-wrap: break-word;
+}
+
+#newDatas div p:first-child {
+    font-size: 1.2rem;
+    color: #0077ff;
+    font-weight: bold;
+}
+
+/* Törlés és szerkesztés gombok stílusa */
+.editBtn, .deleteBtn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    z-index: 1;
+    transition: transform 0.2s ease;
+}
+
+.editBtn:hover, .deleteBtn:hover {
+    transform: scale(1.3);
+}
+
+/* Edit gomb pozíciója: bal felső sarok */
+.editBtn {
+    top: 10px;
+    left: 10px;
+    color: #0077ff; /* Kék */
+}
+
+/* Delete gomb pozíciója: jobb felső sarok */
+.deleteBtn {
+    top: 10px;
+    right: 10px;
+    color: #ff0000; /* Piros */
+}
+
+/* A kártya szövege */
+.card {
+    width: 150px;
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+    min-height: 120px; /* Minimális magasság */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card:hover {
+    transform: translateY(-10px); /* Enyhén felugró hatás */
+}
+
+/* Kártyák szövegének színbeállításai */
+.card p {
+    margin: 10px 0;
+}
+
+/* Média lekérdezések a reszponzív viselkedéshez */
+@media (max-width: 1200px) {
+    #newDatas {
+        grid-template-columns: repeat(4, 1fr); /* 4 oszlop */
+    }
+}
+
+@media (max-width: 992px) {
+    #newDatas {
+        grid-template-columns: repeat(3, 1fr); /* 3 oszlop */
+    }
+}
+
+@media (max-width: 768px) {
+    #newDatas {
+        grid-template-columns: repeat(2, 1fr); /* 2 oszlop */
+    }
+}
+
+@media (max-width: 480px) {
+    #newDatas {
+        grid-template-columns: 1fr; /* 1 oszlop */
+    }
+}
