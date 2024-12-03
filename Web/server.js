@@ -71,4 +71,66 @@ app.put('/datas/:id', async (req, res) => {
     }
 });
 
+app.get('/users/count', async (req, res) => {
+    try {
+        const userCount = await db.table.count();
+        res.json(userCount);
+    } catch (error) {
+        console.error(`Hiba történt a felhasználók számának lekérésekor: ${error.message}`);
+        res.status(500).send("Hiba történt a felhasználók számának lekérésekor");
+    }
+});
+// Adatok számának lekérése
+app.get('/datas/count', async (req, res) => {
+    try {
+        const dataCount = await db.table.count();
+        res.json(dataCount);
+    } catch (error) {
+        console.error(`Hiba történt az adatok számának lekérésekor: ${error.message}`);
+        res.status(500).send("Hiba történt az adatok számának lekérésekor");
+    }
+});
+
+// Legrégebbi felhasználó lekérdezése
+app.get('/users/oldest', async (req, res) => {
+    try {
+        const oldestUser = await db.table.findOne({
+            order: [['createdAt', 'ASC']], // Legrégebbi rekord első helyre rendezése
+            attributes: ['name', 'createdAt'] // Csak a név és létrehozás dátuma
+        });
+
+        if (oldestUser) {
+            res.json({
+                name: oldestUser.name,
+                createdAt: oldestUser.createdAt
+            });
+        } else {
+            res.status(404).send("Nem található felhasználó");
+        }
+    } catch (error) {
+        console.error(`Hiba a legrégebbi felhasználó lekérésekor: ${error.message}`);
+        res.status(500).send("Hiba történt a legrégebbi felhasználó lekérésekor");
+    }
+});
+
+app.get('/users/newest', async (req, res) => {
+    try {
+        const newEst = await db.table.findOne({
+            order: [['createdAt', 'DESC']], 
+            attributes: ['name', 'createdAt'] // Csak a név és létrehozás dátuma
+        });
+
+        if (newEst) {
+            res.json({
+                name: newEst.name,
+                createdAt: newEst.createdAt
+            });
+        } else {
+            res.status(404).send("Nem található felhasználó");
+        }
+    } catch (error) {
+        console.error(`Hiba a legújabb felhasználó lekérésekor: ${error.message}`);
+        res.status(500).send("Hiba történt a legújabb felhasználó lekérésekor");
+    }
+});
 app.listen(port, () => console.log('\x1b[36m%s\x1b[0m', `Listening on: ${port}`));
